@@ -32,10 +32,13 @@ The recommended setup for streamzap involves two or more systems:
 
 Make sure the Python script directory is in PATH and that streamzap has been installed.
 
-### Starting
-
-streamzap can be started from anywhere on your system with the following command
-
 ```
-streamzap
+Usage:
+  streamzap [flags]
+
+General Options:
+  -h, --help           Prints this message
+  -k, --apikey <key>   API key for accessing ZAP
+  -p, --proxy <proxy>  URL of the proxy for HTTP and HTTPS
+                       Default: http://127.0.0.1:8080
 ```

@@ -16,7 +16,7 @@ from youtube import Youtube
 
 
 class Streamzap(object):
-    def __init__(self):
+    def __init__(self, api_key, proxy):
         self._session_name = ''
         self._services = []
         self._HISTORY_SIZE = 100
@@ -24,7 +24,7 @@ class Streamzap(object):
         
         print('Welcome to streamzap!\nYou can stop the application at any time by pressing Ctrl+C\n')
         self._session_name = self.generate_session_name()
-        zap = self.configure_zap('4qtcesic4o99jdrorjnl2t47b4', self._session_name)
+        zap = self.configure_zap(api_key, proxy, self._session_name)
         self.register_services(zap)
         self.run(zap, self._session_name)
 
@@ -36,15 +36,15 @@ class Streamzap(object):
 
         return 'video-stream-analytics' + ip
 
-    def configure_zap(self, api_key, session_name):
+    def configure_zap(self, api_key, proxy, session_name):
         # ZAP configuration    
-        zap = ZAPv2(proxies={'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}, apikey=api_key)
+        zap = ZAPv2(proxies={'http': proxy, 'https': proxy}, apikey=api_key)
         try:
             zap.core.new_session(session_name, True)
         except:
             # Proxy unavailable
             print('Ensure that ZAP is running and the proxy is configured correctly!')
-            sys.exit()
+            sys.exit(1)
             
         return zap
 
