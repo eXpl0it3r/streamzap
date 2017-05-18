@@ -19,9 +19,10 @@ def main():
 
     api_key = '4qtcesic4o99jdrorjnl2t47b4'
     proxy = 'http://127.0.0.1:8080'
+    output = 'output'
 
     try:
-        opts, args = getopt.getopt(argv, 'hk:p:', ['help', 'apikey=', 'proxy='])
+        opts, args = getopt.getopt(argv, 'hk:p:o:', ['help', 'apikey=', 'proxy=', 'output='])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -33,5 +34,7 @@ def main():
             api_key = arg
         elif opt in ('-p', '--proxy'):
             proxy = arg
+        elif opt in ('-o', '--output'):
+            output = arg
 
-    streamzap.Streamzap(api_key, proxy)
+    streamzap.Streamzap(api_key, proxy, output)
