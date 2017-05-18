@@ -5,6 +5,7 @@ from streamdetails import StreamDetails
 from mpegdash.parser import MPEGDASHParser
 import re
 
+
 class Zattoo(Service):
     def __init__(self, zap=None):
         Service.__init__(self, zap)

@@ -5,6 +5,7 @@ from streamdetails import StreamDetails
 import m3u8
 import re
 
+
 class SRF(Service):
     def __init__(self, zap=None):
         Service.__init__(self, zap)

@@ -10,7 +10,7 @@ class Service(object):
         self._detection_url = ''
         self._tracking_url = ''
         self._streams = []
-    
+
     @property
     def name(self):
         """Return the name of the service."""
@@ -20,7 +20,7 @@ class Service(object):
     def detection_counter(self):
         """Start-counter property."""
         return self._detection_counter
-        
+
     @detection_counter.setter
     def detection_counter(self, value):
         """Set start-counter property."""

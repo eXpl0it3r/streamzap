@@ -22,7 +22,7 @@ class Streamzap(object):
         self._zap = None
         self._HISTORY_SIZE = 100
         self._SEARCH_INTERVAL = 2
-        
+
         print('Welcome to streamzap!\nYou can stop the application at any time by pressing Ctrl+C\n')
         self.generate_session_name()
         self.configure_zap(api_key, proxy)
@@ -38,7 +38,7 @@ class Streamzap(object):
         self._session_name = 'video-stream-analytics' + ip
 
     def configure_zap(self, api_key, proxy):
-        # ZAP configuration    
+        # ZAP configuration
         self._zap = ZAPv2(proxies={'http': proxy, 'https': proxy}, apikey=api_key)
         try:
             self._zap.core.new_session(self._session_name, True)
@@ -90,7 +90,7 @@ class Streamzap(object):
                                 csvwriter = csv.writer(csvfile, delimiter=';')
 
                                 if new_file:
-                                    csvwriter.writerow(['timestamp', 'session_name', 'service', 'protocol', 'bitrate', 'width', 'height', 'framerate', 'segmenturl', 'segmentsize']);
+                                    csvwriter.writerow(['timestamp', 'session_name', 'service', 'protocol', 'bitrate', 'width', 'height', 'framerate', 'segmenturl', 'segmentsize'])
 
                                 print(str(len(results)) + ' segments found!')
 
