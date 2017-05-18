@@ -5,6 +5,8 @@ streamzap is a video stream detection tool using the OWASP Zed Attack Proxy (ZAP
 The goal is to detect and track video streams of common (Swiss) video portals on a given device by redirecting its
 traffic to the ZAP and letting streamzap analyze the data.
 
+This application has been developed as part of a bachelor thesis at the university of applied sciences [HSR](https://www.hsr.ch/).
+
 
 ## Setup
 
@@ -42,3 +44,7 @@ General Options:
   -p, --proxy <proxy>  URL of the proxy for HTTP and HTTPS
                        Default: http://127.0.0.1:8080
 ```
+
+## License
+
+See the LICENSE file.
