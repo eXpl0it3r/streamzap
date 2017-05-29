@@ -43,6 +43,7 @@ General Options:
   -k, --apikey <key>   API key for accessing ZAP
   -p, --proxy <proxy>  URL of the proxy for HTTP and HTTPS
                        Default: http://127.0.0.1:8080
+  -o, --output <dir>   Output directory where the CSV data is saved to
 ```
 
 ## License

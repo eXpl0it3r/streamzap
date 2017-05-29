@@ -6,12 +6,13 @@ import getopt
 
 def usage():
     print('\nUsage:')
-    print('  streamzap [flags]')
+    print('  streamzap [options]')
     print('\nGeneral Options:')
     print('  -h, --help           Prints this message')
     print('  -k, --apikey <key>   API key for accessing ZAP')
     print('  -p, --proxy <proxy>  URL of the proxy for HTTP and HTTPS')
     print('                       Default: http://127.0.0.1:8080')
+    print('  -o, --output <dir>   Output directory where the CSV data is saved to')
 
 
 def main():
