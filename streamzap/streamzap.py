@@ -1,10 +1,10 @@
-#!/usr/bin/env python
 import time
 import sys
 import csv
 import socket
 import os
 from zapv2 import ZAPv2
+from segmentinfo import SegmentInfo
 
 # Services imports
 from teleboy import Teleboy
@@ -76,35 +76,28 @@ class Streamzap(object):
                             # Ignore newer results
                             service.tracking_counter += len(urls)
 
-                            # Result output
-                            if not os.path.exists(output):
-                                os.mkdir(output)
+                            if results:
+                                # Result output
+                                if not os.path.exists(output):
+                                    os.mkdir(output)
 
-                            filename = os.path.join(output, service.name + '.csv')
-                            new_file = True
+                                filename = os.path.join(output, service.name + '.csv')
+                                new_file = True
 
-                            if os.path.exists(filename):
-                                new_file = False
+                                if os.path.exists(filename):
+                                    new_file = False
 
-                            with open(filename, 'ab') as csvfile:
-                                csvwriter = csv.writer(csvfile, delimiter=';')
+                                with open(filename, 'ab') as csvfile:
+                                    csvwriter = csv.writer(csvfile, delimiter=';')
 
-                                if new_file:
-                                    csvwriter.writerow(['timestamp', 'session_name', 'service', 'protocol', 'bitrate', 'width', 'height', 'framerate', 'segmenturl', 'segmentsize'])
+                                    if new_file:
+                                        csvwriter.writerow(SegmentInfo.keys())
 
-                                print(str(len(results)) + ' segments found!')
+                                    print(str(len(results)) + ' segments found!')
 
-                                for result in results:
-                                    csvwriter.writerow([result['timestamp'],
-                                                        self._session_name,
-                                                        result['service'],
-                                                        result['protocol'],
-                                                        result['bitrate'],
-                                                        result['width'],
-                                                        result['height'],
-                                                        result['framerate'],
-                                                        result['segmenturl'],
-                                                        result['segmentsize']])
+                                    for result in results:
+                                        result.session = self._session_name
+                                        csvwriter.writerow(result.values())
 
                 # Clean the history to speed up searches
                 if len(self._zap.core.urls) > self._HISTORY_SIZE:

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 class StreamDetails(object):
     def __init__(self):
         self.itag = 0

@@ -1,8 +1,7 @@
-#!/usr/bin/env python
-
 from service import Service
 from urlparse import urlparse
 from streamdetails import StreamDetails
+from segmentinfo import SegmentInfo
 import m3u8
 import re
 
@@ -36,13 +35,10 @@ class Teleboy(Service):
                 bitrate = matches.group(1)
 
             message = self._zap.core.message(url['id'])
-            results.append({'timestamp': message['timestamp'],
-                            'service': self._name,
-                            'protocol': 'HLS',
-                            'bitrate': bitrate,
-                            'width': 0,
-                            'height': 0,
-                            'framerate': 0,
-                            'segmenturl': url['url'],
-                            'segmentsize': len(message['responseBody'])})
+            results.append(SegmentInfo(timestamp=message['timestamp'],
+                                       service=self._name,
+                                       protocol='HLS',
+                                       bitrate=bitrate,
+                                       segmenturl=url['url'],
+                                       segmentsize=len(message['responseBody'])))
         return results

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 class Service(object):
     def __init__(self, zap=None):
         self._zap = zap

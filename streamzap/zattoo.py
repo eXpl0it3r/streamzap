@@ -1,7 +1,6 @@
-#!/usr/bin/env python
-
 from service import Service
 from streamdetails import StreamDetails
+from streamzap.segmentinfo import SegmentInfo
 from mpegdash.parser import MPEGDASHParser
 import re
 
@@ -43,13 +42,13 @@ class Zattoo(Service):
                     stream_details = stream_detail
 
             message = self._zap.core.message(url['id'])
-            results.append({'timestamp': message['timestamp'],
-                            'service': 'Zattoo',
-                            'protocol': 'DASH',
-                            'bitrate': bitrate,
-                            'width': stream_details.width,
-                            'height': stream_details.height,
-                            'framerate': stream_details.framerate,
-                            'segmenturl': url['url'],
-                            'segmentsize': len(message['responseBody'])})
+            results.append(SegmentInfo(timestamp=message['timestamp'],
+                                       service='Zattoo',
+                                       protocol='DASH',
+                                       bitrate=bitrate,
+                                       width=stream_details.width,
+                                       height=stream_details.height,
+                                       framerate=stream_details.framerate,
+                                       segmenturl=url['url'],
+                                       segmentsize=len(message['responseBody'])))
         return results
