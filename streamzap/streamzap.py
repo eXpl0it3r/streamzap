@@ -22,7 +22,7 @@ class Streamzap(object):
         self._zap = None
         self._HISTORY_SIZE = 100
         self._SEARCH_INTERVAL = 2
-        self._NO_RESULT = 5
+        self._NO_RESULT = 10
 
         print('Welcome to streamzap!\nYou can stop the application at any time by pressing Ctrl+C\n')
         self.generate_session_name()
@@ -97,17 +97,21 @@ class Streamzap(object):
                                 if os.path.exists(filename):
                                     new_file = False
 
-                                with open(filename, 'ab') as csvfile:
-                                    csvwriter = csv.writer(csvfile, delimiter=';')
+                                try:
+                                    with open(filename, 'ab') as csvfile:
+                                        csvwriter = csv.writer(csvfile, delimiter=';')
 
-                                    if new_file:
-                                        csvwriter.writerow(SegmentInfo.keys())
+                                        if new_file:
+                                            csvwriter.writerow(SegmentInfo.keys())
 
-                                    print(str(len(results)) + ' segments found!')
+                                        print(str(len(results)) + ' segments found!')
 
-                                    for result in results:
-                                        result.session = self._session_name
-                                        csvwriter.writerow(result.values())
+                                        for result in results:
+                                            result.session = self._session_name
+                                            csvwriter.writerow(result.values())
+                                except IOError:
+                                    print('Output file could not be opened. Tracked data will be lost.')
+                                    print('Ensure you have the permission and no other application is using it.')
 
                 # Clean the history to speed up searches
                 if len(self._zap.core.urls) > self._HISTORY_SIZE:
@@ -116,6 +120,7 @@ class Streamzap(object):
                         service.reset_counters()
                 else:
                     time.sleep(self._SEARCH_INTERVAL)
+                print('')
             except KeyboardInterrupt:
                 # Quit the application with Ctrl + C
                 print('Bye! :)')
