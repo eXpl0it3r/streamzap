@@ -22,6 +22,7 @@ class Streamzap(object):
         self._zap = None
         self._HISTORY_SIZE = 100
         self._SEARCH_INTERVAL = 2
+        self._NO_RESULT = 5
 
         print('Welcome to streamzap!\nYou can stop the application at any time by pressing Ctrl+C\n')
         self.generate_session_name()
@@ -57,7 +58,7 @@ class Streamzap(object):
 
     def run(self, output):
         # Application loop
-        while (True):
+        while True:
             try:
                 for service in self._services:
                     if service.status == 'detecting':
@@ -71,12 +72,21 @@ class Streamzap(object):
                         print('Tracking provider: ' + service.name + ' (' + service.tracking_url + ')')
                         urls = self._zap.search.urls_by_url_regex(regex=service.tracking_url, start=service.tracking_counter)
 
+                        service.no_result += 1
+
+                        if service.no_result > self._NO_RESULT:
+                            print('Switching provider ' + service.name + ' back to detection mode.')
+                            service.no_result = 0
+                            service.status = 'detecting'
+
                         if urls:
                             results = service.track(urls)
                             # Ignore newer results
                             service.tracking_counter += len(urls)
 
                             if results:
+                                service.no_result = 0
+
                                 # Result output
                                 if not os.path.exists(output):
                                     os.mkdir(output)
