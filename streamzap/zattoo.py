@@ -1,6 +1,6 @@
 from service import Service
 from streamdetails import StreamDetails
-from streamzap.segmentinfo import SegmentInfo
+from segmentinfo import SegmentInfo
 from mpegdash.parser import MPEGDASHParser
 import re
 
