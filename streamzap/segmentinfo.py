@@ -1,15 +1,6 @@
 class SegmentInfo(object):
-    def __init__(self, timestamp='N/A',
-                       session='N/A',
-                       service='N/A',
-                       protocol='N/A',
-                       bitrate='N/A',
-                       width='N/A',
-                       height='N/A',
-                       framerate='N/A',
-                       segmenturl='N/A',
-                       segmentsize='N/A',
-                       itag='N/A'):
+    def __init__(self, timestamp='N/A', session='N/A', service='N/A', protocol='N/A', bitrate='N/A',
+                 width='N/A', height='N/A', framerate='N/A', segmenturl='N/A', segmentsize='N/A', itag='N/A'):
         self.timestamp = timestamp
         self.session = session
         self.service = service
