@@ -1,5 +1,7 @@
 # Streamzap
 
+[![Travis branch](https://img.shields.io/travis/eXpl0it3r/streamzap/master.svg)]()
+
 streamzap is a video stream detection tool using the OWASP Zed Attack Proxy (ZAP).
 
 The goal is to detect and track video streams of common (Swiss) video portals on a given device by redirecting its
