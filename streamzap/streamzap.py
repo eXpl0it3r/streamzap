@@ -22,7 +22,7 @@ class Streamzap(object):
         self._zap = None
         self._HISTORY_SIZE = 100
         self._SEARCH_INTERVAL = 2
-        self._NO_RESULT = 10
+        self._NO_RESULT = 20
 
         print('Welcome to streamzap!\nYou can stop the application at any time by pressing Ctrl+C\n')
         self.generate_session_name()

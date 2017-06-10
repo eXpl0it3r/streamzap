@@ -14,8 +14,7 @@ class Swisscom(Service):
     def detect(self, messages):
         print(self._name + ' detected!')
         for message in messages:
-            # dash_obj = MPEGDASHParser.parse(message['responseBody'])
-            dash_obj = MPEGDASHParser.parse('swisscom.mpd')
+            dash_obj = MPEGDASHParser.parse(message['responseBody'])
             for period in dash_obj.periods:
                 self._streams = []
                 for set in period.adaptation_sets:
