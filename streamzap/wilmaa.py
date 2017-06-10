@@ -12,6 +12,16 @@ class Wilmaa(Service):
         self._name = 'Wilmaa'
         self._detection_url = 'wilmaa.customers.cdn.iptv.ch'
 
+    def _match_bitrate(self, bitrate):
+        info = {
+            '1368000': {'width': 720, 'height': 404, 'framerate': 25}
+        }
+
+        if bitrate not in info:
+            return 'N/A', 'N/A'
+
+        return info[bitrate]['width'], info[bitrate]['height'], info[bitrate]['framerate']
+
     def detect(self, messages):
         print(self._name + ' detected!')
         for message in messages:
@@ -34,11 +44,16 @@ class Wilmaa(Service):
             if matches:
                 bitrate = matches.group(1)
 
+            width, height, framerate = self._match_bitrate(bitrate)
+
             message = self._zap.core.message(url['id'])
             results.append(SegmentInfo(timestamp=message['timestamp'],
                                        service=self._name,
                                        protocol='HLS',
                                        bitrate=bitrate,
+                                       width=width,
+                                       height=height,
+                                       framerate=framerate,
                                        segmenturl=url['url'],
                                        segmentsize=len(message['responseBody'])))
         return results
