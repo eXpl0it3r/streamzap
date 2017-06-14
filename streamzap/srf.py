@@ -9,7 +9,7 @@ class SRF(Service):
     def __init__(self, zap=None):
         Service.__init__(self, zap)
         self._name = 'SRF'
-        self._detection_url = '.*srg.*.akamaihd.net/.*/master.m3u8.*'
+        self._detection_url = '.*[srg|srf].*.akamaihd.net/.*/master.m3u8.*'
 
     def detect(self, messages):
         print(self._name + ' detected!')
@@ -29,21 +29,19 @@ class SRF(Service):
 
                 self._streams.append(stream_details)
 
-            self._tracking_url = '.*srg.*.akamaihd.net/.*/.*.ts.*'
+            self._tracking_url = '.*[srg|srfvodhd].*.akamaihd.net/.*/.*.ts.*'
 
     def track(self, urls):
         results = []
         for url in urls:
-            group = 0
-            type = ''
-            matches = re.search('segment[0-9]+?_([0-9]+?)_av-([pb]).ts', url['url'])
+            quality = 0
+            matches = re.search('segment[0-9]+_([0-9]+?)_av.*.ts', url['url'])
             if matches:
-                group = matches.group(1)
-                type = matches.group(2)
+                quality = matches.group(1)
 
             stream_details = StreamDetails()
             for stream_detail in self._streams:
-                matches = re.search('(index_' + str(group) + '_av-' + str(type) + '.m3u8)', stream_detail.manifest_url)
+                matches = re.search('(index_' + str(quality) + '_av.*.m3u8)', stream_detail.manifest_url)
                 if matches:
                     stream_details = stream_detail
 
