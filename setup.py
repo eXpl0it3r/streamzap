@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='streamzap',
-      version='0.1',
+      version='1.0',
       description='Video stream detection tool using ZAP',
       keywords='analytics, video, stream, dash, hls, ZAP',
       url='http://github.com/eXpl0it3r/streamzap',

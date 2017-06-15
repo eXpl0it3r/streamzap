@@ -1,5 +1,5 @@
 #!/bin/sh
-cd /home/fitpc/Dokumente/streamzap
+cd ~/streamzap
 pip uninstall .
 pip install .
 clear
